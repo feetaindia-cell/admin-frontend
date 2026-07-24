@@ -1,0 +1,1 @@
+import{S as e}from"./StatusBadge-CCkeeLBI.js";import{o,P as r,y as u}from"./index-Oo5imVT1.js";const m={__name:"PropertyStatusBadge",props:{status:{type:String,default:""}},setup(s){const t=s,a=u(()=>String(t.status).toLowerCase()==="archived"?"inactive":t.status);return(c,n)=>(o(),r(e,{status:a.value},null,8,["status"]))}};export{m as _};

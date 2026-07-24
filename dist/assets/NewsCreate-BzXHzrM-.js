@@ -1,0 +1,1 @@
+import{N as r}from"./NewsForm-D-VBPK7C.js";import{P as o,o as e}from"./index-Oo5imVT1.js";import"./RichTextEditor-CjLiK9Tf.js";import"./quill-B3jzflqt.js";import"./_commonjsHelpers-D6-XlEtG.js";import"./newsService-DT7fT_EO.js";import"./mediaUrl-DOGiP76-.js";const u={__name:"NewsCreate",setup(t){return(m,p)=>(e(),o(r,{mode:"create"}))}};export{u as default};
