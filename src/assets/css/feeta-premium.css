@@ -1,0 +1,301 @@
+:root {
+  --feeta-radius-sm: 10px;
+  --feeta-radius: 14px;
+  --feeta-radius-lg: 18px;
+  --feeta-border: rgba(148, 163, 184, .22);
+  --feeta-shadow: 0 8px 28px rgba(15, 23, 42, .055);
+  --feeta-shadow-hover: 0 14px 36px rgba(15, 23, 42, .09);
+  --feeta-focus: 0 0 0 3px rgba(72, 127, 255, .18);
+}
+
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; background: #f8fafc; }
+.dashboard-main { min-height: 100vh; }
+.dashboard-main-body { max-width: 100%; overflow-x: clip; }
+
+.dashboard-main-body {
+  --h1: 1.625rem;
+  --h2: 1.375rem;
+  --h3: 1.25rem;
+  --h4: 1.125rem;
+  --h5: 1rem;
+  --h6: 0.9375rem;
+}
+
+.dashboard-main-body :where(h1, .h1) {
+  font-size: 1.625rem !important;
+  line-height: 1.25;
+}
+
+.dashboard-main-body :where(h2, .h2) {
+  font-size: 1.375rem !important;
+  line-height: 1.3;
+}
+
+.dashboard-main-body :where(h3, .h3) {
+  font-size: 1.25rem !important;
+  line-height: 1.35;
+}
+
+.dashboard-main-body :where(h4, .h4) {
+  font-size: 1.125rem !important;
+  line-height: 1.4;
+}
+
+.dashboard-main-body :where(h5, .h5) {
+  font-size: 1rem !important;
+  line-height: 1.45;
+}
+
+.dashboard-main-body :where(h6, .h6) {
+  font-size: 0.9375rem !important;
+  line-height: 1.45;
+}
+
+.dashboard-main-body .card-header h4,
+.dashboard-main-body .card-header h5,
+.dashboard-main-body .card-header h6 {
+  font-size: 0.9375rem !important;
+}
+
+.dashboard-main-body .card,
+.dashboard-main-body [class$="-card"] {
+  border-color: var(--feeta-border);
+  box-shadow: var(--feeta-shadow);
+}
+
+.dashboard-main-body .card {
+  border-radius: var(--feeta-radius) !important;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.dashboard-main-body .card-header {
+  padding: 20px;
+  border-color: var(--feeta-border) !important;
+}
+
+.dashboard-main-body .table-responsive {
+  width: 100%;
+  max-width: 100%;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, .35) transparent;
+}
+
+.dashboard-main-body .table-responsive::-webkit-scrollbar { height: 7px; }
+.dashboard-main-body .table-responsive::-webkit-scrollbar-thumb { border-radius: 999px; background: rgba(100, 116, 139, .32); }
+.dashboard-main-body .table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  border-bottom-width: 1px;
+  background: #f8fafc;
+  box-shadow: inset 0 -1px 0 rgba(148, 163, 184, .16);
+}
+.dashboard-main-body .table tbody tr { transition: background-color .16s ease, box-shadow .16s ease; }
+.dashboard-main-body .table tbody tr:nth-child(even) { background: rgba(248, 250, 252, .42); }
+.dashboard-main-body .table tbody tr:hover { background: rgba(72, 127, 255, .045); }
+.dashboard-main-body .table:has(th:last-child.text-end) th:last-child,
+.dashboard-main-body .table:has(th:last-child.text-end) td:last-child,
+.dashboard-main-body .table:has(th:last-child.text-center) th:last-child,
+.dashboard-main-body .table:has(th:last-child.text-center) td:last-child {
+  position: sticky;
+  right: 0;
+  z-index: 1;
+  background: inherit;
+  box-shadow: -8px 0 14px -14px rgba(15, 23, 42, .35);
+}
+.dashboard-main-body .table:has(th:last-child.text-end) th:last-child,
+.dashboard-main-body .table:has(th:last-child.text-center) th:last-child { z-index: 3; background: #f8fafc; }
+
+.btn {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  border-radius: var(--feeta-radius-sm);
+  line-height: 1.15;
+  vertical-align: middle;
+  transition: transform .16s ease, box-shadow .16s ease, background-color .16s ease, border-color .16s ease;
+}
+.btn-sm { min-height: 34px; }
+.btn-lg { min-height: 48px; }
+.btn i, .btn svg, .btn iconify-icon, .btn .icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  line-height: 1;
+}
+.btn:not(:disabled):hover { transform: translateY(-1px); box-shadow: 0 7px 18px rgba(15, 23, 42, .09); }
+.btn:active { transform: translateY(0); }
+.btn:disabled { cursor: not-allowed; opacity: .62; box-shadow: none; }
+
+.form-control, .form-select {
+  min-height: 42px;
+  border-color: #dbe3ee;
+  border-radius: var(--feeta-radius-sm);
+  transition: border-color .16s ease, box-shadow .16s ease, background-color .16s ease;
+}
+.form-control:focus, .form-select:focus { border-color: #8fb0ff; box-shadow: var(--feeta-focus); }
+.form-control:disabled, .form-select:disabled { cursor: not-allowed; background: #f1f5f9; opacity: .78; }
+.form-label { margin-bottom: 7px; color: #334155; font-size: 13px; font-weight: 650; }
+.invalid-feedback, .text-danger.text-xs { line-height: 1.45; }
+
+.filter-toolbar, .filter-panel, .faq-toolbar, .tab-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+.filter-toolbar > *, .filter-panel > *, .faq-toolbar > *, .tab-toolbar > * { min-width: 180px; flex: 1 1 180px; }
+.filter-toolbar .search-control, .filter-panel .search-control, .faq-toolbar .search-control, .tab-toolbar .search-control { min-width: 240px; flex: 2 1 280px; }
+
+.modal { backdrop-filter: blur(2px); }
+.modal-backdrop.show { opacity: .38; backdrop-filter: blur(8px); }
+.modal-content {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .62);
+  border-radius: var(--feeta-radius-lg);
+  box-shadow: 0 24px 70px rgba(15, 23, 42, .22);
+}
+.modal-header, .modal-footer { padding: 18px 22px; border-color: var(--feeta-border); }
+.modal-body { max-height: min(70vh, 720px); overflow-y: auto; padding: 22px; }
+.dropdown-menu { border-color: var(--feeta-border); border-radius: 13px; box-shadow: 0 16px 42px rgba(15, 23, 42, .14); animation: feeta-dropdown-in .16s ease both; }
+
+.navbar-header {
+  position: sticky;
+  top: 0;
+  z-index: 1025;
+  transition: box-shadow .2s ease, border-color .2s ease, background-color .2s ease;
+}
+.navbar-header.is-scrolled { box-shadow: 0 9px 28px rgba(15, 23, 42, .09); }
+.sidebar { z-index: 1000; }
+.sidebar, .dashboard-main { transition: margin .24s ease, width .24s ease, transform .24s ease, left .24s ease; }
+
+/* Layout fix:
+   Keep the fixed sidebar and main content in sync with one set of widths.
+   The legacy theme used multiple breakpoint widths for the sidebar while the
+   FEETA sidebar component now renders at 260px, which keeps desktop content from
+   slide underneath the fixed sidebar. */
+:root {
+  --feeta-sidebar-width: 260px;
+  --feeta-sidebar-collapsed-width: 72px;
+}
+
+/* The Vue structure remains Header + main.dashboard-main. Since the sidebar is
+   fixed, the main column is offset with margin-inline-start instead of absolute
+   positioning. This keeps desktop content permanently beside the sidebar. */
+@media (min-width: 1200px) {
+  body::after {
+    display: none;
+  }
+
+  .sidebar {
+    inset-inline-start: 0 !important;
+    width: var(--feeta-sidebar-width) !important;
+    transform: none !important;
+  }
+
+  .dashboard-main {
+    width: auto;
+    min-width: 0;
+    margin-inline-start: var(--feeta-sidebar-width) !important;
+    transition: margin-inline-start .24s ease, margin .24s ease;
+  }
+
+  .sidebar.active {
+    width: var(--feeta-sidebar-collapsed-width) !important;
+  }
+
+  .dashboard-main.active {
+    margin-inline-start: var(--feeta-sidebar-collapsed-width) !important;
+  }
+
+  /* If the collapsed sidebar expands on hover, the content shifts with it so
+     the expanded fixed sidebar still never overlaps the desktop page body. */
+  .sidebar.active:hover {
+    width: var(--feeta-sidebar-width) !important;
+  }
+
+  .sidebar.active:hover ~ .dashboard-main {
+    margin-inline-start: var(--feeta-sidebar-width) !important;
+  }
+}
+
+/* Tablet/mobile behavior:
+   Remove the desktop content offset and let the sidebar behave as an overlay
+   drawer only when explicitly opened. The visible page content is not given a
+   permanent left margin on smaller screens. */
+@media (max-width: 1199.98px) {
+  .dashboard-main,
+  .dashboard-main.active {
+    margin-inline-start: 0 !important;
+  }
+
+  .sidebar {
+    inset-inline-start: 0 !important;
+    width: min(var(--feeta-sidebar-width), calc(100vw - 36px)) !important;
+    transform: translateX(-100%);
+    transition: transform .24s ease;
+  }
+
+  .sidebar.sidebar-open {
+    transform: translateX(0);
+  }
+}
+
+/* The component already renders a proper mobile backdrop button. Disable the
+   older body pseudo-overlay so it cannot create an unexpected stacking layer. */
+body.overlay-active::after {
+  display: none;
+}
+
+.sidebar-menu > li > a { position: relative; transition: color .15s ease, background-color .15s ease; }
+.sidebar-menu > li > a:hover { transform: none; }
+.sidebar-menu a.active-page::before,
+.sidebar-menu > li > a.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  bottom: 9px;
+  width: 3px;
+  border-radius: 0 999px 999px 0;
+  background: #2563eb;
+  box-shadow: none;
+}
+.sidebar .menu-icon { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 22px; line-height: 1; }
+
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid #487fff;
+  outline-offset: 2px;
+}
+.swal2-popup { border-radius: 16px !important; box-shadow: 0 20px 60px rgba(15, 23, 42, .2) !important; }
+.swal2-timer-progress-bar { background: #487fff !important; }
+
+[data-theme=dark] body { background: #0f172a; }
+[data-theme=dark] .dashboard-main-body .table thead th,
+[data-theme=dark] .dashboard-main-body .table:has(th:last-child.text-end) th:last-child,
+[data-theme=dark] .dashboard-main-body .table:has(th:last-child.text-center) th:last-child { background: #111827; }
+[data-theme=dark] .dashboard-main-body .table tbody tr:nth-child(even) { background: rgba(30, 41, 59, .25); }
+[data-theme=dark] .dashboard-main-body .table tbody tr:hover { background: rgba(72, 127, 255, .09); }
+[data-theme=dark] .form-label { color: #cbd5e1; }
+[data-theme=dark] .form-control:disabled, [data-theme=dark] .form-select:disabled { background: #1e293b; }
+[data-theme=dark] .modal-content, [data-theme=dark] .dropdown-menu { border-color: rgba(148, 163, 184, .2); background: #111827; }
+
+@keyframes feeta-dropdown-in { from { opacity: 0; transform: translateY(-5px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+@media (max-width: 767px) {
+  .dashboard-main-body { padding-left: 14px; padding-right: 14px; }
+  .filter-toolbar > *, .filter-panel > *, .faq-toolbar > *, .tab-toolbar > *,
+  .filter-toolbar .search-control, .filter-panel .search-control, .faq-toolbar .search-control, .tab-toolbar .search-control { width: 100%; min-width: 0; flex: 1 1 100%; }
+  .modal-dialog { margin: 12px; }
+  .modal-body { max-height: 68vh; padding: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

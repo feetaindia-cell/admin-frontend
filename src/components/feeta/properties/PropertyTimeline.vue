@@ -1,0 +1,6 @@
+<template><section v-if="timeline.length" class="detail-card"><div class="section-heading"><iconify-icon icon="ri:history-line" /><h6 class="mb-0">Timeline</h6></div><div class="timeline"><div v-for="item in timeline" :key="`${item.id}-${item.occurred_at}`" class="timeline-row"><i></i><div><strong>{{ titleCase(item.type) }}</strong><p class="mb-0 text-secondary-light text-sm">{{ safeValue(item.description) }} · {{ formatDate(item.occurred_at,true) }}</p></div></div></div></section></template>
+<script setup>
+import { formatDate,safeValue,titleCase } from '@/utils/finance'
+defineProps({timeline:{type:Array,default:()=>[]}})
+</script>
+<style scoped>.detail-card{padding:22px;border:1px solid #e5eaf2;border-radius:14px;background:#fff}.section-heading{display:flex;align-items:center;gap:10px;padding-bottom:15px;margin-bottom:16px;border-bottom:1px solid #edf1f6}.section-heading iconify-icon{color:#487fff;font-size:21px}.timeline-row{position:relative;display:flex;gap:13px;padding-bottom:20px}.timeline-row i{width:12px;height:12px;flex:0 0 12px;margin-top:5px;border:3px solid #bfdbfe;border-radius:50%;background:#2563eb}.timeline-row:before{content:'';position:absolute;left:5px;top:16px;bottom:0;width:2px;background:#dbeafe}.timeline-row:last-child:before{display:none}</style>

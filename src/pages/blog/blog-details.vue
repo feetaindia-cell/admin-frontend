@@ -1,0 +1,25 @@
+<template>
+    <div class="dashboard-main-body"><div class="row gy-4">
+            <div class="col-lg-8">
+                <BlogOne />
+                <Comments />
+                <AddComment />
+            </div>
+            <!-- Sidebar Start -->
+            <BlogSidebar />
+        </div>
+    </div>
+</template>
+<script>import BlogOne from '@/components/Blog/BlogDetails/BlogOne.vue'
+import Comments from '@/components/Blog/BlogDetails/Comments.vue'
+import AddComment from '@/components/Blog/BlogDetails/AddComment.vue'
+import BlogSidebar from '@/components/Blog/BlogDetails/BlogSidebar.vue'
+export default {
+    name: "BlogDetails",
+    components: {BlogOne,
+        Comments,
+        AddComment,
+        BlogSidebar
+    },
+}
+</script>

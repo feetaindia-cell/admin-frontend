@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FEETA API Flow Reference</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --panel: #fff;
+      --text: #162033;
+      --muted: #667085;
+      --line: #dbe2ea;
+      --blue: #0f6cbd;
+      --green: #107c10;
+      --amber: #9a6700;
+      --red: #c50f1f;
+      --code: #101828;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.55;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    aside {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 24px 18px;
+      background: var(--panel);
+      border-right: 1px solid var(--line);
+    }
+
+    aside strong { display: block; margin-bottom: 4px; font-size: 19px; }
+    aside p { margin: 0 0 20px; color: var(--muted); font-size: 13px; }
+    nav a {
+      display: block;
+      padding: 8px 10px;
+      border-radius: 5px;
+      color: #344054;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    nav a:hover { background: #eef6ff; color: var(--blue); }
+
+    main { width: 100%; max-width: 1180px; padding: 30px; }
+    section {
+      margin-bottom: 18px;
+      padding: 24px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .hero { padding: 30px; }
+    h1, h2, h3 { margin-top: 0; line-height: 1.25; }
+    h1 { margin-bottom: 8px; font-size: 32px; }
+    h2 { margin-bottom: 14px; font-size: 23px; }
+    h3 { margin: 22px 0 10px; font-size: 17px; }
+    p { margin: 0 0 12px; }
+    code, pre { font-family: Consolas, "Courier New", monospace; }
+    code {
+      padding: 2px 5px;
+      border-radius: 4px;
+      background: #eef2f6;
+      color: #172b4d;
+    }
+    pre {
+      overflow-x: auto;
+      margin: 10px 0 16px;
+      padding: 15px;
+      border-radius: 6px;
+      background: var(--code);
+      color: #f8fafc;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #f7f9fc; }
+
+    .badge {
+      display: inline-block;
+      min-width: 62px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+    }
+    .get { background: var(--green); }
+    .post { background: var(--blue); }
+    .put, .patch { background: var(--amber); }
+    .delete { background: var(--red); }
+    .active { color: var(--green); font-weight: 700; }
+    .disabled { color: var(--red); font-weight: 700; }
+
+    .callout {
+      margin: 14px 0;
+      padding: 13px 15px;
+      border-left: 4px solid var(--blue);
+      background: #eef6ff;
+    }
+    .warning { border-left-color: var(--amber); background: #fff8e6; }
+    .danger { border-left-color: var(--red); background: #fff1f2; }
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .step {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fafcff;
+    }
+    .step b { display: block; margin-bottom: 5px; color: var(--blue); }
+
+    @media (max-width: 850px) {
+      .layout { display: block; }
+      aside { position: static; width: auto; height: auto; }
+      main { padding: 16px; }
+      .flow { grid-template-columns: 1fr; }
+      section { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside>
+      <strong>FEETA API Reference</strong>
+      <p>Actual backend flow and team answer sheet</p>
+      <nav>
+        <a href="#status">Current Status</a>
+        <a href="#bases">Base URLs</a>
+        <a href="#admin-auth">Admin Authentication</a>
+        <a href="#frontend-flow">Frontend Session Flow</a>
+        <a href="#admin-management">Admin Management</a>
+        <a href="#rbac">Roles and Permissions</a>
+        <a href="#news">News</a>
+        <a href="#notifications">Notifications</a>
+        <a href="#menus">Menus</a>
+        <a href="#user-auth">User Authentication</a>
+        <a href="#users">Users</a>
+        <a href="#common">Common Responses</a>
+        <a href="#team-answers">Team Answers</a>
+      </nav>
+    </aside>
+
+    <main>
+      <section class="hero">
+        <h1>FEETA API Flow Reference</h1>
+        <p>This page explains what the Laravel backend currently exposes, which APIs the Vue admin panel uses, and which user-auth APIs are disabled.</p>
+        <div class="callout">
+          Last verified: June 24, 2026. The admin panel login is active. Public user login and email OTP sending are temporarily commented out.
+        </div>
+      </section>
+
+      <section id="status">
+        <h2>Current Status</h2>
+        <table>
+          <thead><tr><th>Area</th><th>Status</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td>Admin authentication</td><td class="active">Active</td><td>The Vue admin panel can log in, refresh profile/permissions, and log out.</td></tr>
+            <tr><td>Admin, role, permission and news APIs</td><td class="active">Active</td><td>Protected with Sanctum and role/permission middleware.</td></tr>
+            <tr><td>Public user login</td><td class="disabled">Disabled</td><td><code>POST /auth/login</code> is commented in routes, but implementation remains in code.</td></tr>
+            <tr><td>Email OTP sending</td><td class="disabled">Disabled</td><td><code>POST /auth/send-email-otp</code> is commented in routes, but MSG91 implementation remains in code.</td></tr>
+            <tr><td>Email OTP verification</td><td class="disabled">Not implemented</td><td>There is no verify-email-OTP endpoint in this Laravel backend.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="bases">
+        <h2>Base URLs</h2>
+        <table>
+          <thead><tr><th>Environment</th><th>Base URL</th></tr></thead>
+          <tbody>
+            <tr><td>Production</td><td><code>https://feeta.cloud/admin-api/api/v1</code></td></tr>
+            <tr><td>Local Laravel</td><td><code>http://127.0.0.1:8000/api/v1</code></td></tr>
+            <tr><td>Vue admin API configuration</td><td><code>https://feeta.cloud/admin-api/api/v1/admin</code></td></tr>
+          </tbody>
+        </table>
+        <div class="callout warning">
+          The Vue client base already ends in <code>/admin</code>. Therefore it calls <code>/auth/login</code> relative to that base, producing the full admin login URL.
+        </div>
+      </section>
+
+      <section id="admin-auth">
+        <h2>Admin Authentication</h2>
+        <table>
+          <thead><tr><th>Method</th><th>Path</th><th>Auth</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge post">POST</span></td><td><code>/admin/auth/login</code></td><td>Public</td><td>Authenticate an admin and return a Sanctum bearer token.</td></tr>
+            <tr><td><span class="badge get">GET</span></td><td><code>/admin/auth/profile</code></td><td>Bearer</td><td>Reload the current admin after browser refresh.</td></tr>
+            <tr><td><span class="badge get">GET</span></td><td><code>/admin/auth/me/permissions</code></td><td>Bearer</td><td>Load permission names for routes, sidebar and actions.</td></tr>
+            <tr><td><span class="badge post">POST</span></td><td><code>/admin/auth/logout</code></td><td>Bearer</td><td>Revoke the current token/session.</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Login Request</h3>
+        <pre>{
+  "email": "admin@example.com",
+  "password": "password"
+}</pre>
+
+        <h3>Authorization Header</h3>
+        <pre>Authorization: Bearer YOUR_SANCTUM_TOKEN
+Accept: application/json</pre>
+      </section>
+
+      <section id="frontend-flow">
+        <h2>Vue Admin Session Flow</h2>
+        <div class="flow">
+          <div class="step"><b>1. Login</b>Call <code>POST /admin/auth/login</code>.</div>
+          <div class="step"><b>2. Store</b>Save token, admin data and permissions in local storage/store.</div>
+          <div class="step"><b>3. Refresh</b>If token exists, load profile and permissions without sending the user back to login while requests are loading.</div>
+          <div class="step"><b>4. Logout</b>Clear local auth only on explicit logout or an API <code>401</code>.</div>
+        </div>
+        <div class="callout">
+          A <code>403</code> means authenticated but not permitted. A <code>401</code> means the token is missing, invalid or expired.
+        </div>
+      </section>
+
+      <section id="admin-management">
+        <h2>Admin Management</h2>
+        <table>
+          <thead><tr><th>Method</th><th>Path</th><th>Permission</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge get">GET</span></td><td><code>/admin/admins</code></td><td><code>admin.view</code></td><td>List admins.</td></tr>
+            <tr><td><span class="badge get">GET</span></td><td><code>/admin/admins/{id}</code></td><td><code>admin.view</code></td><td>Admin details and recent activity.</td></tr>
+            <tr><td><span class="badge post">POST</span></td><td><code>/admin/admins</code></td><td><code>admin.create</code></td><td>Create an admin.</td></tr>
+            <tr><td><span class="badge put">PUT</span></td><td><code>/admin/admins/{id}</code></td><td><code>admin.update</code></td><td>Update admin information.</td></tr>
+            <tr><td><span class="badge patch">PATCH</span></td><td><code>/admin/admins/{id}/status</code></td><td><code>admin.status</code></td><td>Activate or deactivate.</td></tr>
+            <tr><td><span class="badge patch">PATCH</span></td><td><code>/admin/admins/{id}/role</code></td><td><code>admin.role.assign</code></td><td>Assign a role.</td></tr>
+            <tr><td><span class="badge patch">PATCH</span></td><td><code>/admin/admins/{id}/reset-password</code></td><td><code>admin.password.reset</code></td><td>Reset another admin password.</td></tr>
+            <tr><td><span class="badge delete">DELETE</span></td><td><code>/admin/admins/{id}</code></td><td><code>admin.delete</code></td><td>Delete/deactivate according to backend rules.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="rbac">
+        <h2>Roles and Permissions</h2>
+        <table>
+          <thead><tr><th>Method</th><th>Path</th><th>Access</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge get">GET</span></td><td><code>/admin/roles</code></td><td><code>manage_roles</code></td><td>List roles.</td></tr>
+            <tr><td><span class="badge get">GET</span></td><td><code>/admin/roles/{id}</code></td><td><code>manage_roles</code></td><td>Role details.</td></tr>
+            <tr><td><span class="badge post">POST</span></td><td><code>/admin/roles</code></td><td>Super Admin</td><td>Create role.</td></tr>
+            <tr><td><span class="badge put">PUT</span></td><td><code>/admin/roles/{id}</code></td><td>Super Admin</td><td>Update role.</td></tr>
+            <tr><td><span class="badge delete">DELETE</span></td><td><code>/admin/roles/{id}</code></td><td>Super Admin</td><td>Delete role when allowed.</td></tr>
+            <tr><td><span class="badge put">PUT</span></td><td><code>/admin/roles/{id}/menus</code></td><td>Super Admin</td><td>Sync role menus.</td></tr>
+            <tr><td><span class="badge put">PUT</span></td><td><code>/admin/roles/{id}/permissions</code></td><td>Super Admin</td><td>Sync role permissions.</td></tr>
+            <tr><td><span class="badge get">GET</span></td><td><code>/admin/permissions</code></td><td><code>manage_permissions</code></td><td>List grouped permissions.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="news">
+        <h2>News APIs</h2>
+        <h3>Admin News</h3>
+        <table>
+          <thead><tr><th>Method</th><th>Path</th><th>Permission</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge get">GET</span></td><td><code>/admin/news</code></td><td><code>news.view</code></td></tr>
+            <tr><td><span class="badge get">GET</span></td><td><code>/admin/news/{id}</code></td><td><code>news.view</code></td></tr>
+            <tr><td><span class="badge post">POST</span></td><td><code>/admin/news</code></td><td><code>news.create</code></td></tr>
+            <tr><td><span class="badge put">PUT</span></td><td><code>/admin/news/{id}</code></td><td><code>news.update</code></td></tr>
+            <tr><td><span class="badge patch">PATCH</span></td><td><code>/admin/news/{id}/publish</code></td><td><code>news.publish</code></td></tr>
+            <tr><td><span class="badge patch">PATCH</span></td><td><code>/admin/news/{id}/archive</code></td><td><code>news.archive</code></td></tr>
+            <tr><td><span class="badge patch">PATCH</span></td><td><code>/admin/news/{id}/draft</code></td><td><code>news.publish</code></td></tr>
+            <tr><td><span class="badge delete">DELETE</span></td><td><code>/admin/news/{id}</code></td><td><code>news.delete</code></td></tr>
+          </tbody>
+        </table>
+
+        <h3>Public News</h3>
+        <table>
+          <tbody>
+            <tr><td><span class="badge get">GET</span></td><td><code>/news</code></td><td>No token</td><td>Published news list.</td></tr>
+            <tr><td><span class="badge get">GET</span></td><td><code>/news/{slug}</code></td><td>No token</td><td>Published news detail.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="notifications">
+        <h2>Notifications</h2>
+        <table>
+          <thead><tr><th>Audience</th><th>Method</th><th>Path</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>Admin</td><td><span class="badge get">GET</span></td><td><code>/admin/notifications</code></td><td>List admin notifications.</td></tr>
+            <tr><td>Admin</td><td><span class="badge get">GET</span></td><td><code>/admin/notifications/unread-count</code></td><td>Unread count.</td></tr>
+            <tr><td>Admin</td><td><span class="badge patch">PATCH</span></td><td><code>/admin/notifications/{id}/read</code></td><td>Mark one read.</td></tr>
+            <tr><td>User</td><td><span class="badge get">GET</span></td><td><code>/notifications</code></td><td>List user notifications.</td></tr>
+            <tr><td>User</td><td><span class="badge get">GET</span></td><td><code>/notifications/unread-count</code></td><td>Unread count.</td></tr>
+            <tr><td>User</td><td><span class="badge patch">PATCH</span></td><td><code>/notifications/{id}/read</code></td><td>Mark one read.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="menus">
+        <h2>Menu APIs</h2>
+        <table>
+          <tbody>
+            <tr><td><span class="badge get">GET</span></td><td><code>/my-menus</code></td><td>Menus available to the current authenticated account.</td></tr>
+            <tr><td><span class="badge get">GET</span></td><td><code>/menus</code></td><td>List menus, requires <code>menus.view</code>.</td></tr>
+            <tr><td><span class="badge get">GET</span></td><td><code>/menus/{id}</code></td><td>Menu details.</td></tr>
+            <tr><td><span class="badge post">POST</span></td><td><code>/menus</code></td><td>Create, requires <code>menus.create</code>.</td></tr>
+            <tr><td><span class="badge put">PUT</span></td><td><code>/menus/{id}</code></td><td>Update, requires <code>menus.update</code>.</td></tr>
+            <tr><td><span class="badge delete">DELETE</span></td><td><code>/menus/{id}</code></td><td>Delete, requires <code>menus.delete</code>.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="user-auth">
+        <h2>User Authentication</h2>
+        <div class="callout danger">
+          Do not give <code>POST /auth/login</code> or <code>POST /auth/send-email-otp</code> to frontend developers as active APIs. Both routes are currently commented.
+        </div>
+        <table>
+          <thead><tr><th>Method</th><th>Path</th><th>Status</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge post">POST</span></td><td><code>/auth/send-email-otp</code></td><td class="disabled">Disabled</td><td>MSG91 implementation retained for later.</td></tr>
+            <tr><td><span class="badge post">POST</span></td><td><code>/auth/login</code></td><td class="disabled">Disabled</td><td>User password login implementation retained.</td></tr>
+            <tr><td><span class="badge post">POST</span></td><td><code>/auth/register</code></td><td>Route active</td><td>Still controlled by <code>AUTH_ALLOW_REGISTRATION</code>; normally returns 403 when disabled.</td></tr>
+            <tr><td><span class="badge post">POST</span></td><td><code>/auth/forgot-password</code></td><td class="active">Active</td><td>Requests a password reset link.</td></tr>
+            <tr><td><span class="badge post">POST</span></td><td><code>/auth/reset-password</code></td><td class="active">Active</td><td>Completes password reset using token.</td></tr>
+            <tr><td><span class="badge get">GET</span></td><td><code>/auth/me</code></td><td class="active">Bearer required</td><td>Current user profile.</td></tr>
+            <tr><td><span class="badge get">GET</span></td><td><code>/auth/tokens</code></td><td class="active">Bearer required</td><td>Current user sessions/tokens.</td></tr>
+            <tr><td><span class="badge delete">DELETE</span></td><td><code>/auth/tokens/{id}</code></td><td class="active">Bearer required</td><td>Revoke one token.</td></tr>
+            <tr><td><span class="badge post">POST</span></td><td><code>/auth/logout</code></td><td class="active">Bearer required</td><td>Revoke current token.</td></tr>
+            <tr><td><span class="badge post">POST</span></td><td><code>/auth/logout-all</code></td><td class="active">Bearer required</td><td>Revoke all user tokens.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="users">
+        <h2>User Management</h2>
+        <p>These routes are inside the authenticated Super Admin group.</p>
+        <table>
+          <tbody>
+            <tr><td><span class="badge get">GET</span></td><td><code>/users</code></td><td>List users.</td></tr>
+            <tr><td><span class="badge post">POST</span></td><td><code>/users</code></td><td>Create user.</td></tr>
+            <tr><td><span class="badge get">GET</span></td><td><code>/users/{id}</code></td><td>User details.</td></tr>
+            <tr><td><span class="badge put">PUT/PATCH</span></td><td><code>/users/{id}</code></td><td>Update user.</td></tr>
+            <tr><td><span class="badge delete">DELETE</span></td><td><code>/users/{id}</code></td><td>Delete user.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="common">
+        <h2>Common Response Rules</h2>
+        <table>
+          <thead><tr><th>Status</th><th>Meaning</th><th>Frontend action</th></tr></thead>
+          <tbody>
+            <tr><td><code>200/201</code></td><td>Success</td><td>Use response <code>data</code>.</td></tr>
+            <tr><td><code>401</code></td><td>Unauthenticated/expired token</td><td>Clear auth and route to sign-in.</td></tr>
+            <tr><td><code>403</code></td><td>Authenticated but forbidden</td><td>Show access denied; do not treat it as logout.</td></tr>
+            <tr><td><code>404</code></td><td>Resource not found</td><td>Show not-found state.</td></tr>
+            <tr><td><code>422</code></td><td>Validation error</td><td>Render field errors from <code>errors</code>.</td></tr>
+            <tr><td><code>500/503</code></td><td>Server/provider issue</td><td>Show a retryable error and log details in development.</td></tr>
+          </tbody>
+        </table>
+        <pre>{
+  "success": true,
+  "message": "Request completed successfully.",
+  "data": {}
+}</pre>
+      </section>
+
+      <section id="team-answers">
+        <h2>Quick Team Answers</h2>
+        <table>
+          <thead><tr><th>Question</th><th>Answer</th></tr></thead>
+          <tbody>
+            <tr><td>What is the admin login API?</td><td><code>POST https://feeta.cloud/admin-api/api/v1/admin/auth/login</code></td></tr>
+            <tr><td>Is user login active?</td><td>No. <code>POST /auth/login</code> is temporarily commented.</td></tr>
+            <tr><td>Is MSG91 OTP active?</td><td>No. Sender code remains, but <code>POST /auth/send-email-otp</code> is commented.</td></tr>
+            <tr><td>Is OTP verification available?</td><td>No verify-OTP endpoint exists yet.</td></tr>
+            <tr><td>How is admin access controlled?</td><td>Laravel Sanctum bearer token plus role/permission middleware.</td></tr>
+            <tr><td>Should frontend log out on 403?</td><td>No. Only explicit logout or 401 should clear authentication.</td></tr>
+            <tr><td>Are public news APIs authenticated?</td><td>No. <code>GET /news</code> and <code>GET /news/{slug}</code> are public.</td></tr>
+            <tr><td>Where are secrets stored?</td><td>Backend <code>.env</code> only. Never in Vue, docs, WhatsApp or Git.</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
