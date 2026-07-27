@@ -1,0 +1,1 @@
+import{A as o}from"./AdminForm-eqwOZ2x2.js";import{P as r,o as t}from"./index-Ct0KKLRs.js";import"./adminService-Daao7bnm.js";import"./roleService-BV4zr6TK.js";const s={__name:"AdminEdit",setup(e){return(m,a)=>(t(),r(o,{mode:"edit"}))}};export{s as default};

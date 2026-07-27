@@ -1,1 +1,0 @@
-import{A as r}from"./AdminForm-BlJg3AFV.js";import{P as e,o}from"./index-Oo5imVT1.js";import"./adminService-q_El9ziZ.js";import"./roleService-CJy0UvoH.js";const _={__name:"AdminCreate",setup(t){return(m,a)=>(o(),e(r,{mode:"create"}))}};export{_ as default};
