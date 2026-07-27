@@ -1,0 +1,1 @@
+import{N as o}from"./NewsForm-D-VBPK7C.js";import{P as r,o as t}from"./index-Oo5imVT1.js";import"./RichTextEditor-CjLiK9Tf.js";import"./quill-B3jzflqt.js";import"./_commonjsHelpers-D6-XlEtG.js";import"./newsService-DT7fT_EO.js";import"./mediaUrl-DOGiP76-.js";const f={__name:"NewsEdit",setup(e){return(m,p)=>(t(),r(o,{mode:"edit"}))}};export{f as default};
