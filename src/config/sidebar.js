@@ -71,6 +71,7 @@ export const sidebarItems = [
       { label: 'Property Approvals', path: '/properties/pending', icon: 'lucide:shield-check', permissions: ['property.view'] },
       { label: 'Archived Properties', path: '/properties/archived', icon: 'lucide:archive', permissions: ['property.view'] },
       { label: 'Deleted Properties', path: '/properties/deleted', icon: 'lucide:trash-2', permissions: ['property.view'] },
+      { label: 'Offers', path: '/offers', icon: 'lucide:hand-coins', permissions: ['property.view'] },
     ],
   },
   {

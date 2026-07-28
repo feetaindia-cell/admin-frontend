@@ -221,6 +221,7 @@ const FeaturedProperties = () => import('./pages/feeta/properties/FeaturedProper
 const PendingProperties = () => import('./pages/feeta/properties/PendingProperties.vue')
 const ArchivedProperties = () => import('./pages/feeta/properties/ArchivedProperties.vue')
 const DeletedProperties = () => import('./pages/feeta/properties/DeletedProperties.vue')
+const OfferList = () => import('./pages/feeta/offers/OfferList.vue')
 const LeadList = () => import('./pages/feeta/leads/LeadList.vue')
 const LeadView = () => import('./pages/feeta/leads/LeadView.vue')
 const FeetaCircleApplications = () => import('./pages/feeta/circle/ApplicationList.vue')
@@ -302,6 +303,7 @@ const routes = [
   { path: '/properties/deleted', component: DeletedProperties, meta: { requiresAuth: true, permissions: ['property.view'] } },
   { path: '/properties/:id', component: PropertyView, meta: { requiresAuth: true, permissions: ['property.view'] } },
   { path: '/properties/:id/edit', component: PropertyEdit, meta: { requiresAuth: true, permissions: ['property.update'] } },
+  { path: '/offers', component: OfferList, meta: { requiresAuth: true, permissions: ['property.view'] } },
   { path: '/leads', component: LeadList, meta: { requiresAuth: true, permissions: ['lead.view'] } },
   { path: '/leads/:leadId', component: LeadView, meta: { requiresAuth: true, permissions: ['lead.view'] } },
   { path: '/feeta-circle/applications', component: FeetaCircleApplications, meta: { requiresAuth: true, permissions: ['feeta_circle.application.view'] } },

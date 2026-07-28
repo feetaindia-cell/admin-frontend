@@ -194,6 +194,14 @@ export const searchableRoutes = [
     keywords: ['property', 'properties', 'listing', 'real estate', 'approval'],
   },
   {
+    title: 'Offer Management',
+    subtitle: 'View offers sent and received',
+    route: '/offers',
+    icon: 'ri:hand-coin-line',
+    permissions: ['property.view'],
+    keywords: ['offer', 'offers', 'sent offers', 'received offers', 'property offers'],
+  },
+  {
     title: 'Payments',
     subtitle: 'Track Razorpay payments and invoices',
     route: '/payments',
