@@ -24,7 +24,8 @@ export class ApiError extends Error {
     this.data = response?.data
     this.errors = response?.data?.errors || {}
     this.field = response?.data?.field
-    this.errorCode = response?.data?.error_code
+    this.code = response?.data?.code || 'REQUEST_FAILED'
+    this.errorCode = this.code
   }
 }
 
@@ -57,6 +58,37 @@ const errorToast = Swal.mixin({
   timerProgressBar: true,
 })
 
+function apiMessageFrom(response, error) {
+  const payload = response?.data
+  if (payload && typeof payload === 'object' && typeof payload.message === 'string' && payload.message.trim()) {
+    return payload.message
+  }
+
+  if (error?.code === 'ECONNABORTED') {
+    return 'The request took too long. Please try again.'
+  }
+
+  if (!response) {
+    return 'Unable to connect to the server. Please check your connection and try again.'
+  }
+
+  return 'Something went wrong. Please try again.'
+}
+
+function rejectApiResponse(response, error = null) {
+  const message = apiMessageFrom(response, error)
+  const apiError = new ApiError(message, response)
+
+  if (response?.data?.success === false && message && response?.config?.metadata?.showErrorModal !== false) {
+    errorToast.fire({
+      icon: 'error',
+      title: message,
+    })
+  }
+
+  return Promise.reject(apiError)
+}
+
 api.interceptors.request.use((config) => {
   const token = getAuthToken()
   if (token) {
@@ -79,6 +111,9 @@ api.interceptors.response.use(
       const loading = useLoadingStore()
       loading.finishRequest(response.config.metadata.loadingId)
     }
+    if (response?.data?.success === false) {
+      return rejectApiResponse(response)
+    }
     return response
   },
   (error) => {
@@ -99,22 +134,7 @@ api.interceptors.response.use(
       }
     }
 
-    const message =
-      response?.data?.message ||
-      response?.data?.error ||
-      (error.code === 'ECONNABORTED' ? 'The request took too long. Please try again.' : error.message) ||
-      'Something went wrong. Please try again.'
-
-    const apiError = new ApiError(message, response)
-
-    if (response?.data?.success === false && message && error.config?.metadata?.showErrorModal !== false) {
-      errorToast.fire({
-        icon: 'error',
-        title: message,
-      })
-    }
-
-    return Promise.reject(apiError)
+    return rejectApiResponse(response, error)
   },
 )
 

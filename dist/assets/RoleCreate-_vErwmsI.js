@@ -1,0 +1,1 @@
+import{R as o}from"./RoleForm-M9p5JTes.js";import{P as r,o as e}from"./index-6wmJwLBA.js";import"./EmptyState-DW6lxsGN.js";import"./LoadingState-BuPZCtno.js";import"./permissionService-D37Dwyyc.js";import"./roleService-D2jh8cA1.js";import"./rolePermissions-CimXmq1y.js";const f={__name:"RoleCreate",setup(t){return(m,p)=>(e(),r(o,{mode:"create"}))}};export{f as default};

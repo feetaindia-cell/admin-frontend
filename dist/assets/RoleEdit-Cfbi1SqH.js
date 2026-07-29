@@ -1,0 +1,1 @@
+import{R as o}from"./RoleForm-M9p5JTes.js";import{P as r,o as t}from"./index-6wmJwLBA.js";import"./EmptyState-DW6lxsGN.js";import"./LoadingState-BuPZCtno.js";import"./permissionService-D37Dwyyc.js";import"./roleService-D2jh8cA1.js";import"./rolePermissions-CimXmq1y.js";const d={__name:"RoleEdit",setup(e){return(m,p)=>(t(),r(o,{mode:"edit"}))}};export{d as default};

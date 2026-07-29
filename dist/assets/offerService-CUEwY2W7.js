@@ -1,1 +1,0 @@
-import{Z as s,$ as t,au as e,a1 as i}from"./index-8Ld02skp.js";const r="/admin/offers",o=async(a={})=>s(await t.get(e(r),{params:i(a)})),c=async(a={})=>s(await t.get(e(`${r}/statistics`),{params:i(a)})),n={getOffers:o,getOfferStatistics:c};export{n as o};

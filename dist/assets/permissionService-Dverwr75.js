@@ -1,1 +1,0 @@
-import{Z as i,$ as n,au as r,a1 as e}from"./index-8Ld02skp.js";async function s(a={}){return i(await n.get(r("/admin/permissions"),{params:e(a)}))}const t=s,o=s,p={list:s,getPermissions:t,getGroupedPermissions:o};export{p};
